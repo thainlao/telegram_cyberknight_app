@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import '../styles/tasks.css';
 import { ITasks, Status } from '../utils/types';
 import SingleTask from './SingleTask';
 
 const Tasks = () => {
-    const [tasks, setTasks] = useState<ITasks[]>([
+    const tasks: ITasks[] = ([
         {
             _id: '1',
             img: 'https://i.imgur.com/SLFXGf9.png',

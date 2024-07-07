@@ -1,11 +1,11 @@
-import { useState } from 'react';
+
 import '../styles/mates.css';
 import { IFriend } from '../utils/types';
 import SingleFrien from './SingleFrien';
 import knight from '../assets/knight.png';
 
 const Mates = () => {
-    const [friends, setFriends] = useState<IFriend[]>([
+    const friends: IFriend[] =([
         {
             _id: '1',
             friendavatar: '',
@@ -49,6 +49,8 @@ const Mates = () => {
             firendCBK: 11.179
         }
     ])
+
+
 
     return (
         <div className='mates'>
