@@ -13,7 +13,7 @@ function App() {
   const renderComponent = () => {
       switch (activeComponent) {
           case 'Base':
-              return <Base />;
+              return <Base />
           case 'Tasks':
               return <Tasks />;
           case 'Mates':

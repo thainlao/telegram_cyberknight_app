@@ -25,20 +25,23 @@ const Base = () => {
         config: { tension: 100, friction: 100, duration: 1500 },
     });
 
+    const animatedPropsOnEnter = useSpring({
+        from: { opacity: 0, transform: 'scale(0.5)', backgroundColor: '#19193D' },
+        to: { opacity: 1, transform: 'scale(1)', backgroundColor: '#19193D' },
+        config: { tension: 200, friction: 30 }
+    });
+
     return (
-        <div className='base'>
-            
+        <animated.div style={animatedPropsOnEnter} className='base'>
             <section className='useravatar_section'>
-                <h1>User Name ммм</h1>
-                <div className='avatar'>
-                    <h2>UN</h2>
-                </div>
+                <h1>User Name</h1>
+                <img className='avatar' src='https://i.imgur.com/SLFXGf9.png' loading='lazy' alt='avatar'/>
             </section>
 
             <div className='collect_section'>
                 <h3>Collect <span>CBK$</span></h3>
                 
-                <animated.h4 style={{ fontSize: '3rem', fontWeight: 800 }}>
+                <animated.h4 style={{ fontSize: '3.5rem', fontWeight: 500 }}>
                     {animatedProps.count.interpolate((val: number) => val.toFixed(1))}
                 </animated.h4>
             </div>
@@ -54,7 +57,7 @@ const Base = () => {
                     </>
                 )}
             </button>
-        </div>
+        </animated.div>
     );
 };
 

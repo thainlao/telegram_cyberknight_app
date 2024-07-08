@@ -7,7 +7,7 @@
     justify-content: start;
     flex-direction: column;
     padding-top: 1rem;
-    gap: 3.5rem;
+    gap: 1rem;
     position: relative;
 }
 
@@ -18,16 +18,18 @@
 }
 
 .avatar {
-    background-color: rgb(179, 81, 174);
-    height: 50px;
-    width: 50px;
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    box-shadow: 0px 0px 12px silver;
     animation: shadowPulse 4s infinite;
+}
+
+.avatar img {
+
 }
 
 @keyframes shadowPulse {

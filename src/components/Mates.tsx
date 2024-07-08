@@ -3,6 +3,7 @@ import '../styles/mates.css';
 import { IFriend } from '../utils/types';
 import SingleFrien from './SingleFrien';
 import knight from '../assets/knight.png';
+import { useSpring, animated } from 'react-spring';
 
 const Mates = () => {
     const friends: IFriend[] =([
@@ -22,38 +23,28 @@ const Mates = () => {
         },
         {
             _id: '3',
-            friendName: 'kkkatttya_v',
-            friendavatar: '',
-            friendFriends: 0,
-            firendCBK: 11.179
-        },
-        {
-            _id: '1',
             friendavatar: '',
             friendName: 'IWWFLY',
             friendFriends: 5,
             firendCBK: 31.845
         },
         {
-            _id: '1',
+            _id: '4',
             friendavatar: '',
             friendName: 'IWWFLY',
             friendFriends: 5,
             firendCBK: 31.845
         },
-        {
-            _id: '3',
-            friendName: 'kkkatttya_v',
-            friendavatar: 'https://i.imgur.com/RLRmjZS.png',
-            friendFriends: 0,
-            firendCBK: 11.179
-        }
     ])
 
-
+    const animatedPropsOnEnter = useSpring({
+        from: { opacity: 0, transform: 'scale(0.5)', backgroundColor: '#000000' },
+        to: { opacity: 1, transform: 'scale(1)', backgroundColor: '#000000' },
+        config: { tension: 200, friction: 30 }
+    });
 
     return (
-        <div className='mates'>
+        <animated.div style={animatedPropsOnEnter} className='mates'>
             <div className='matestext_section'>
                 <section>
                     <img src={knight} alt='knight'/>
@@ -80,7 +71,7 @@ const Mates = () => {
                     <SingleFrien key={friend._id} friend={friend} />
                 ))}
             </section>
-        </div>
+        </animated.div>
     );
 };
 

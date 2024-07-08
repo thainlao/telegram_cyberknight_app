@@ -1,6 +1,7 @@
 import '../styles/tasks.css';
 import { ITasks, Status } from '../utils/types';
 import SingleTask from './SingleTask';
+import { useSpring, animated } from 'react-spring';
 
 const Tasks = () => {
     const tasks: ITasks[] = ([
@@ -33,9 +34,14 @@ const Tasks = () => {
         return statusOrder[a.status] - statusOrder[b.status]
     });
     
+    const animatedPropsOnEnter = useSpring({
+        from: { opacity: 0, transform: 'scale(0.5)', backgroundColor: '#19193D' },
+        to: { opacity: 1, transform: 'scale(1)', backgroundColor: '#19193D' },
+        config: { tension: 200, friction: 30 }
+    });
 
     return (
-        <div className='tasks'>
+        <animated.div style={animatedPropsOnEnter} className='tasks'>
             <div className='text_section'>
                 <h1>Cyber Knight Tasks</h1>
                 <h2>You will receive CBK$ by completing the task.</h2>
@@ -46,7 +52,7 @@ const Tasks = () => {
                     <SingleTask key={singleTask._id} singleTask={singleTask} />
                 ))}
             </div>
-        </div>
+        </animated.div>
     );
 };
 
