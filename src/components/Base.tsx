@@ -29,7 +29,7 @@ const Base = () => {
         <div className='base'>
             
             <section className='useravatar_section'>
-                <h1>User Name</h1>
+                <h1>User Name ммм</h1>
                 <div className='avatar'>
                     <h2>UN</h2>
                 </div>
@@ -42,7 +42,7 @@ const Base = () => {
                     {animatedProps.count.interpolate((val: number) => val.toFixed(1))}
                 </animated.h4>
             </div>
-            <div className='dark-bg'></div>
+
             <button 
                 className={`collect_button ${buttonBlocked ? 'blocked' : ''}`}
                 onClick={handleCollect}

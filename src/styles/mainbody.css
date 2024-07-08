@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: flex-start;
     position: relative;
+    overflow: hidden;
 }
 
 .content-container {
@@ -16,7 +17,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    overflow-y: auto;
+    overflow: auto;
 }
 
 .buttons {
