@@ -16,5 +16,13 @@
 <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+       if (window.Telegram && window.Telegram.WebApp) {
+           window.Telegram.WebApp.expand();
+       }
+   });
+</script>
 </body>
 </html>
