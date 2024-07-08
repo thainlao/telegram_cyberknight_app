@@ -42,7 +42,7 @@ const Base = () => {
                     {animatedProps.count.interpolate((val: number) => val.toFixed(1))}
                 </animated.h4>
             </div>
-
+            <div className='dark-bg'></div>
             <button 
                 className={`collect_button ${buttonBlocked ? 'blocked' : ''}`}
                 onClick={handleCollect}

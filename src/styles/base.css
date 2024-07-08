@@ -149,3 +149,34 @@
     }
 }
 
+.dark-bg {
+    width: 60%;
+    height: 40%;
+    opacity: .4;
+    filter: blur(80px);
+    background-color: #0f0f42;
+    position: absolute;
+    border-radius: 25%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: colored infinite 2.5s;
+}
+
+@keyframes colored {
+    0% {
+        background-color: #692469;
+    } 
+    20% {
+        background-color: #3b3b72;
+    }
+    50%{
+        background-color: #6464ca;
+    }
+    75%{
+        background-color: #151553;
+    }
+    100%{
+        background-color: #161653;
+    } 
+}
