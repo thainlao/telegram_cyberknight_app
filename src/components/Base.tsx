@@ -2,7 +2,6 @@ import { useState } from 'react';
 import '../styles/base.css';
 import lock from '../assets/icons8-lock-50.png';
 import { useSpring, animated } from 'react-spring';
-import '../styles/blackhole.css';
 
 const Base = () => {
     const [userCoins, setUserCoins] = useState<number>(10)
@@ -55,19 +54,6 @@ const Base = () => {
                     </>
                 )}
             </button>
-
-            <div className="wrapper">
-                <div className="tab">
-                <div className="ring"></div>
-                <div className="ringdetail"></div>
-                <div className="ring2"></div>
-                <div className="ring2"></div>
-                <div className="ring2detail"></div>
-                <div className="ring2gloom"></div>
-                <div className="shape"></div>
-                </div>
-            </div>
-
         </div>
     );
 };

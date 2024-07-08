@@ -1,5 +1,6 @@
 .mainpage {
     height: 100vh;
+    max-height: 100vh;
     background: linear-gradient(rgb(61, 25, 59), black);
     display: flex;
     flex-direction: column;
