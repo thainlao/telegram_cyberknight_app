@@ -10,17 +10,18 @@ import axios from 'axios';
 
 function App() {
   const [activeComponent, setActiveComponent] = useState('Base');
-  
+  const [userData, setUserData] = useState<any>(null);
+
   const renderComponent = () => {
       switch (activeComponent) {
           case 'Base':
-              return <Base />
+              return <Base userData={userData} />
           case 'Tasks':
-              return <Tasks />;
+              return <Tasks userData={userData}/>;
           case 'Mates':
-              return <Mates />;
+              return <Mates userData={userData}/>;
           default:
-              return <Base />;
+              return <Base userData={userData}/>;
       }
   };
 
@@ -32,6 +33,7 @@ function App() {
       .then(response => {
         if (response.data.success) {
           console.log('User authenticated successfully');
+          setUserData(response.data.user); // Store user data in state
         } else {
           console.log('Authentication failed');
         }
@@ -81,7 +83,7 @@ function App() {
       </section>
       <h6 
       style={{color: 'white', fontSize: '1rem', fontWeight: '100'}}
-      >version 09.07.2024 (2)</h6>
+      >version 09.07.2024 (3)</h6>
   </div>
   )
 }

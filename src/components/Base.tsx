@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import '../styles/base.css';
 import lock from '../assets/icons8-lock-50.png';
 import { useSpring, animated } from 'react-spring';
+import { UserDataProps } from '../utils/types';
 
-const Base = () => {
-    const [userCoins, setUserCoins] = useState<number>(10)
+const Base: React.FC<UserDataProps> = ({ userData }) => {
     const [buttonBlocked, setButtonBlocked] = useState<boolean>(false);
 
     const handleCollect = () => {
         if (!buttonBlocked) {
-            const newCoins = userCoins + 10;
-            setUserCoins(newCoins);
-            
+            userData.cbkCoins += 10;
+
             setButtonBlocked(true);
 
             setTimeout(() => {
@@ -21,7 +20,7 @@ const Base = () => {
     };
 
     const animatedProps = useSpring({
-        count: userCoins,
+        count: userData.cbkCoins,
         config: { tension: 100, friction: 100, duration: 1500 },
     });
 
@@ -34,7 +33,7 @@ const Base = () => {
     return (
         <animated.div style={animatedPropsOnEnter} className='base'>
             <section className='useravatar_section'>
-                <h1>User Name</h1>
+                <h1>{userData.username}</h1>
                 <img className='avatar' src='https://i.imgur.com/SLFXGf9.png' loading='lazy' alt='avatar'/>
             </section>
 

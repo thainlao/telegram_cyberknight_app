@@ -1,9 +1,10 @@
 import '../styles/tasks.css';
-import { ITasks, Status } from '../utils/types';
+import { ITasks, Status, UserDataProps } from '../utils/types';
 import SingleTask from './SingleTask';
 import { useSpring, animated } from 'react-spring';
 
-const Tasks = () => {
+const Tasks: React.FC<UserDataProps> = ({userData}) => {
+
     const tasks: ITasks[] = ([
         {
             _id: '1',

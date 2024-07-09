@@ -1,11 +1,12 @@
 
 import '../styles/mates.css';
-import { IFriend } from '../utils/types';
+import { IFriend, UserDataProps } from '../utils/types';
 import SingleFrien from './SingleFrien';
 import knight from '../assets/knight.png';
 import { useSpring, animated } from 'react-spring';
+import React from 'react';
 
-const Mates = () => {
+const Mates: React.FC<UserDataProps> = ({userData}) => {
     const friends: IFriend[] =([
         {
             _id: '1',

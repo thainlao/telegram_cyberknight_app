@@ -19,3 +19,15 @@ export interface IFriend {
     friendFriends: number;
     firendCBK: number;
 }
+
+export interface IUserData {
+    _id: string;
+    telegramId: string;
+    username: string;
+    cbkCoins: number;
+    friends: any[];
+}
+
+export interface UserDataProps {
+    userData: IUserData;
+}
