@@ -1,15 +1,32 @@
 import friendIcon from './assets/icons8-friends-50.png';
 import taskIcon from './assets/icons8-tasks-24.png';
 import homeIcon from './assets/icons8-home-24.png';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Base from "./components/Base";
 import Tasks from "./components/Tasks";
 import Mates from "./components/Mates";
 import './styles/mainbody.css';
+import { fetchTelegramUserData } from './utils/tgApi';
 
 function App() {
   const [activeComponent, setActiveComponent] = useState('Base');
+  const [userData, setUserData] = useState(null);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const initData = urlParams.get('initData')
+
+    if (initData) {
+      fetchTelegramUserData(initData)
+        .then(data => {
+          setUserData(data);
+        })
+        .catch(error => {
+          console.error('Error fetching user data:', error);
+        });
+    }
+  }, []);
+  
   const renderComponent = () => {
       switch (activeComponent) {
           case 'Base':
