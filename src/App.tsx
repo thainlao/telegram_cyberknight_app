@@ -24,22 +24,36 @@ function App() {
       }
   };
 
-  useEffect(() => {
-    const tg = window.Telegram.WebApp;
-    tg.ready();
-    const initData = tg.initDataUnsafe;
-    axios.post('http://localhost:3000/auth/telegram', initData)
-      .then(response => {
-        if (response.data.success) {
-          console.log('User authenticated successfully');
-        } else {
-          console.log('Authentication failed');
-        }
-      })
-      .catch(error => {
-        console.error('Error during authentication', error);
-      });
-    },[]);
+    useEffect(() => {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) {
+          console.error('Invalid Telegram initialization data:', tg.initDataUnsafe);
+          return;
+      }
+      const { id, username, chat_instance, chat_type, auth_date, hash } = tg.initDataUnsafe;
+      const dataToSend = {
+          user: {
+              id: id,
+              username: username,
+          },
+          chat_instance: chat_instance,
+          chat_type: chat_type,
+          auth_date: auth_date,
+          hash: hash,
+      };
+      axios.post('http://localhost:3000/auth/telegram', dataToSend)
+          .then(response => {
+              if (response.data.success) {
+                  console.log('User authenticated successfully', response.data.user);
+              } else {
+                  console.log('Authentication failed');
+              }
+          })
+          .catch(error => {
+              console.error('Error during authentication', error);
+          });
+  }, []);
 
   return (
     <div className='mainpage'>
@@ -81,7 +95,7 @@ function App() {
       </section>
       <h6 
       style={{color: 'white', fontSize: '1rem', fontWeight: '100'}}
-      >version 09.07.2024</h6>
+      >version 09.07.2024 (2)</h6>
   </div>
   )
 }
