@@ -25,6 +25,7 @@ function App() {
           console.error('Error fetching user data:', error);
         });
     }
+  console.log(userData);
   }, []);
   
   const renderComponent = () => {
