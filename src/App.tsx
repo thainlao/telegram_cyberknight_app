@@ -6,27 +6,10 @@ import Base from "./components/Base";
 import Tasks from "./components/Tasks";
 import Mates from "./components/Mates";
 import './styles/mainbody.css';
-import { fetchTelegramUserData } from './utils/tgApi';
+import axios from 'axios';
 
 function App() {
   const [activeComponent, setActiveComponent] = useState('Base');
-  const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const initData = urlParams.get('initData')
-
-    if (initData) {
-      fetchTelegramUserData(initData)
-        .then(data => {
-          setUserData(data);
-        })
-        .catch(error => {
-          console.error('Error fetching user data:', error);
-        });
-    }
-  console.log(userData);
-  }, []);
   
   const renderComponent = () => {
       switch (activeComponent) {
@@ -40,6 +23,23 @@ function App() {
               return <Base />;
       }
   };
+
+  useEffect(() => {
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    const initData = tg.initDataUnsafe;
+    axios.post('http://localhost:3000/auth/telegram', initData)
+      .then(response => {
+        if (response.data.success) {
+          console.log('User authenticated successfully');
+        } else {
+          console.log('Authentication failed');
+        }
+      })
+      .catch(error => {
+        console.error('Error during authentication', error);
+      });
+    },[]);
 
   return (
     <div className='mainpage'>
@@ -79,6 +79,9 @@ function App() {
                     alt="Friends Icon" />
                 </button>
       </section>
+      <h6 
+      style={{color: 'white', fontSize: '1rem', fontWeight: '100'}}
+      >version 09.07.2024</h6>
   </div>
   )
 }
