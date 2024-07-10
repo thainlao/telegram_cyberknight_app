@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/base.css';
 import lock from '../assets/icons8-lock-50.png';
 import { useSpring, animated } from 'react-spring';
-import { baseProps } from '../utils/types';  // Предполагается, что baseProps и IUserData определены в файле types.ts
+import { baseProps } from '../utils/types';
 import axios from 'axios';
 
 const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, checkCollectionStatus }) => {
@@ -37,7 +37,7 @@ const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, ch
 
     const handleCollect = () => {
         if (!buttonBlocked) {
-            axios.post('http://localhost:3000/collect-coins', { telegramId: userData.telegramId })
+            axios.post('http://localhost:3000/user/collect-coins', { telegramId: userData.telegramId })
                 .then(response => {
                     if (response.data.success) {
                         userData.cbkCoins = response.data.cbkCoins;
