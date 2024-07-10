@@ -7,6 +7,7 @@ import { useSpring, animated } from 'react-spring';
 import React from 'react';
 
 const Mates: React.FC<UserDataProps> = ({userData}) => {
+    console.log(userData)
     const friends: IFriend[] =([
         {
             _id: '1',

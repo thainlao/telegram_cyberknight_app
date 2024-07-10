@@ -4,7 +4,7 @@ import SingleTask from './SingleTask';
 import { useSpring, animated } from 'react-spring';
 
 const Tasks: React.FC<UserDataProps> = ({userData}) => {
-
+    console.log(userData)
     const tasks: ITasks[] = ([
         {
             _id: '1',
