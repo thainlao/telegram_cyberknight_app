@@ -13,37 +13,6 @@ const Mates: React.FC<UserDataProps> = ({userData}) => {
             <div>Error</div>
         )
     }
-    
-    const friends: IFriend[] =([
-        {
-            _id: '1',
-            friendavatar: '',
-            friendName: 'IWWFLY',
-            friendFriends: 5,
-            firendCBK: 31.845
-        },
-        {
-            _id: '2',
-            friendavatar: '',
-            friendName: 'GVolkov_01',
-            friendFriends: 2,
-            firendCBK: 50
-        },
-        {
-            _id: '3',
-            friendavatar: '',
-            friendName: 'IWWFLY',
-            friendFriends: 5,
-            firendCBK: 31.845
-        },
-        {
-            _id: '4',
-            friendavatar: '',
-            friendName: 'IWWFLY',
-            friendFriends: 5,
-            firendCBK: 31.845
-        },
-    ])
 
     const animatedPropsOnEnter = useSpring({
         from: { opacity: 0, transform: 'scale(0.5)', backgroundColor: '#000000' },
@@ -76,27 +45,24 @@ const Mates: React.FC<UserDataProps> = ({userData}) => {
                 </section>
 
                 <h2>invite your friends to get more <span>CBK$</span></h2>
+                <h2>10% + 150 <span>CBK$</span></h2>
                 <div className='star star1'></div>
                 <div className='plus-sign'></div>
             </div>
 
-            <div className='claim_section'>
-                <h2>CBK$</h2>
-                <button>Claim</button>
-            </div>
-            <p>You'll get 10% CBK from your friends</p>
+
             <button className='invitefrien' onClick={handleInviteClick}>{inviteButtonText}</button>
 
             <section className='friendssection'>
             <div className='star star2'></div>
             <div className='star star3'></div>
-                <h1>{friends.length} mates</h1>
+                <h1>{userData.friends.length} mates</h1>
                 {userData?.friends.length > 0 ? (
                     userData.friends.map((friend: IFriend) => (
                         <SingleFrien key={friend._id} friend={friend} />
                     ))
                 ) : (
-                    <p>You haven't added any friends yet.</p>
+                    <p>You haven't invited any friends yet.</p>
                 )}
             </section>
         </animated.div>
