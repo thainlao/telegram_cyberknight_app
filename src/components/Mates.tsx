@@ -23,9 +23,10 @@ const Mates: React.FC<UserDataProps> = ({userData}) => {
     const [inviteButtonText, setInviteButtonText] = useState('Invite');
 
     const handleInviteClick = async () => {
-        if (userData?.referralLink) {
+        if (userData) {
+            const referralLink = `http://localhost:3000/telegram?referrerId=${userData.telegramId}`;
             try {
-                await navigator.clipboard.writeText(userData.referralLink);
+                await navigator.clipboard.writeText(referralLink);
                 setInviteButtonText('Copied');
                 setTimeout(() => {
                     setInviteButtonText('Invite');
