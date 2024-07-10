@@ -32,7 +32,7 @@ const ErrorComponents: React.FC<Props> = ({error}) => {
             <h2>{error}</h2>
             <h6 
             style={{color: 'white', fontSize: '1rem', fontWeight: '100'}}
-            >version 10.07.2024 (5)
+            >version 10.07.2024 (add referal link) (6)
             </h6>
         </div>
     )

@@ -25,8 +25,10 @@ export interface IUserData {
     telegramId: string;
     username: string;
     cbkCoins: number;
-    friends: any[];
+    friends: IFriend[];
     lastCollected: Date;
+    referrer: any;
+    referralLink: string;
 }
 
 export interface UserDataProps {

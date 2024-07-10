@@ -5,14 +5,13 @@ import { useSpring, animated } from 'react-spring';
 import { baseProps } from '../utils/types';
 import axios from 'axios';
 
+
 const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, checkCollectionStatus }) => {
     const [buttonBlocked, setButtonBlocked] = useState<boolean>(!canCollect);
     const [timeRemaining, setTimeRemaining] = useState<string | null>(null);
 
     if (!userData) {
-        return (
-            <div>Error</div>
-        )
+        return 'error'
     }
     
     useEffect(() => {
@@ -32,6 +31,8 @@ const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, ch
                 }
             }, 1000);
             return () => clearInterval(interval);
+        } else {
+            setButtonBlocked(false)
         }
     }, [nextAvailableTime]);
 
@@ -85,7 +86,7 @@ const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, ch
                 onClick={handleCollect}
                 disabled={buttonBlocked}  // Исправлено здесь
             >
-                {buttonBlocked ? `Wait: ${timeRemaining || '...'} to collect` : 'COLLECT CBK$'}
+                {buttonBlocked ? `${timeRemaining || '...'} to collect` : 'COLLECT CBK$'}
                 {buttonBlocked && <img src={lock} alt="lock" />}
             </button>
         </animated.div>

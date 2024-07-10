@@ -4,10 +4,16 @@ import { IFriend, UserDataProps } from '../utils/types';
 import SingleFrien from './SingleFrien';
 import knight from '../assets/knight.png';
 import { useSpring, animated } from 'react-spring';
-import React from 'react';
+import React, { useState } from 'react';
 
 const Mates: React.FC<UserDataProps> = ({userData}) => {
-    console.log(userData)
+
+    if (!userData) {
+        return (
+            <div>Error</div>
+        )
+    }
+    
     const friends: IFriend[] =([
         {
             _id: '1',
@@ -45,6 +51,22 @@ const Mates: React.FC<UserDataProps> = ({userData}) => {
         config: { tension: 200, friction: 30 }
     });
 
+    const [inviteButtonText, setInviteButtonText] = useState('Invite');
+
+    const handleInviteClick = async () => {
+        if (userData?.referralLink) {
+            try {
+                await navigator.clipboard.writeText(userData.referralLink);
+                setInviteButtonText('Copied');
+                setTimeout(() => {
+                    setInviteButtonText('Invite');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
+        }
+    };
+
     return (
         <animated.div style={animatedPropsOnEnter} className='mates'>
             <div className='matestext_section'>
@@ -63,15 +85,19 @@ const Mates: React.FC<UserDataProps> = ({userData}) => {
                 <button>Claim</button>
             </div>
             <p>You'll get 10% CBK from your friends</p>
-            <button className='invitefrien'>Invite</button>
+            <button className='invitefrien' onClick={handleInviteClick}>{inviteButtonText}</button>
 
             <section className='friendssection'>
             <div className='star star2'></div>
             <div className='star star3'></div>
                 <h1>{friends.length} mates</h1>
-                {friends.map((friend: IFriend) => (
-                    <SingleFrien key={friend._id} friend={friend} />
-                ))}
+                {userData?.friends.length > 0 ? (
+                    userData.friends.map((friend: IFriend) => (
+                        <SingleFrien key={friend._id} friend={friend} />
+                    ))
+                ) : (
+                    <p>You haven't added any friends yet.</p>
+                )}
             </section>
         </animated.div>
     );
