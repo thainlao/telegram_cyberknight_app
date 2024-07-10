@@ -34,8 +34,10 @@ const useTelegramAuth = () => {
     }, []);
 
     const checkCollectionStatus = (telegramId: string) => {
-        axios.get(`http://localhost:3000/collection-status/${telegramId}`)
+        console.log(`Checking collection status for telegramId: ${telegramId}`);
+        axios.post('http://localhost:3000/collection-status', { telegramId })
             .then(response => {
+                console.log('Collection status response:', response.data);
                 setCanCollect(response.data.canCollect);
                 setNextAvailableTime(response.data.nextAvailableTime ? new Date(response.data.nextAvailableTime) : null);
             })
