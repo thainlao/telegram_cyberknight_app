@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import '../styles/error.css';
 
-const ErrorComponents = () => {
+export interface Props {
+    error: string;
+}
+const ErrorComponents: React.FC<Props> = ({error}) => {
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {
@@ -26,6 +29,11 @@ const ErrorComponents = () => {
                 </button>
                 <h1>the link</h1>
             </div>
+            <h2>{error}</h2>
+            <h6 
+            style={{color: 'white', fontSize: '1rem', fontWeight: '100'}}
+            >version 10.07.2024 (5)
+            </h6>
         </div>
     )
 }

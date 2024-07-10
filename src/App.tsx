@@ -31,7 +31,7 @@ function App() {
   }
 
   if (error) {
-    return <ErrorComponents />
+    return <ErrorComponents error={error} />
   }
     
   return (
