@@ -26,8 +26,16 @@ export interface IUserData {
     username: string;
     cbkCoins: number;
     friends: any[];
+    lastCollected: Date;
 }
 
 export interface UserDataProps {
-    userData: IUserData;
+    userData: IUserData | null;
+}
+
+export interface baseProps {
+    userData: IUserData | null;
+    canCollect: boolean;
+    nextAvailableTime: Date | null;
+    checkCollectionStatus: (telegramId: string) => void;
 }

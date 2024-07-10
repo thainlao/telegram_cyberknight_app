@@ -7,30 +7,31 @@ import Tasks from "./components/Tasks";
 import Mates from "./components/Mates";
 import './styles/mainbody.css';
 import useTelegramAuth from './hoocs/useTelegramAuth';
+import ErrorComponents from './pages/ErrorComponents';
 
 function App() {
   const [activeComponent, setActiveComponent] = useState('Base');
-  const { userData, loading, error } = useTelegramAuth();
+  const { userData, loading, error, canCollect, nextAvailableTime, checkCollectionStatus } = useTelegramAuth();
 
   const renderComponent = () => {
       switch (activeComponent) {
           case 'Base':
-              return <Base userData={userData} />
+              return <Base userData={userData} canCollect={canCollect} nextAvailableTime={nextAvailableTime} checkCollectionStatus={checkCollectionStatus} />
           case 'Tasks':
               return <Tasks userData={userData}/>;
           case 'Mates':
               return <Mates userData={userData}/>;
           default:
-              return <Base userData={userData}/>;
+              return <Base userData={userData} canCollect={canCollect} nextAvailableTime={nextAvailableTime} checkCollectionStatus={checkCollectionStatus} />
       }
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <span className='loader'></span>;
   }
 
   if (error) {
-    return <p>Error loading user data: {error.message}</p>;
+    return <ErrorComponents />
   }
     
   return (
@@ -73,7 +74,7 @@ function App() {
       </section>
       <h6 
       style={{color: 'white', fontSize: '1rem', fontWeight: '100'}}
-      >version 10.07.2024 (4)</h6>
+      >version 10.07.2024 (5)</h6>
   </div>
   )
 }
