@@ -13,20 +13,23 @@ const useTelegramAuth = () => {
         const tg = window.Telegram.WebApp;
         tg.ready();
         const initData = tg.initDataUnsafe;
-
+        setLoading(true)
         axios.post('http://localhost:3000/auth/telegram', initData)
             .then(response => {
                 if (response.data.success) {
                     console.log('User authenticated successfully');
                     setUserData(response.data.user);
-                    checkCollectionStatus(response.data.user.telegramId);  // Добавлено здесь
+                    checkCollectionStatus(response.data.user.telegramId);
+                    setLoading(false)
                 } else {
                     console.log('Authentication failed');
+                    setLoading(false)
                 }
             })
             .catch(err => {
                 console.error('Error during authentication', err);
                 setError(err.message);
+                setLoading(false)
             })
             .finally(() => {
                 setLoading(false);
@@ -34,15 +37,18 @@ const useTelegramAuth = () => {
     }, []);
 
     const checkCollectionStatus = (telegramId: string) => {
+        setLoading(true)
         axios.post('http://localhost:3000/user/collection-status', { telegramId })
             .then(response => {
                 console.log('Collection status response:', response.data);
                 setCanCollect(response.data.canCollect);
                 setNextAvailableTime(response.data.nextAvailableTime ? new Date(response.data.nextAvailableTime) : null);
+                setLoading(false)
             })
             .catch((error) => {
                 console.log(error);
                 setError('Error checking collection status');
+                setLoading(false)
             });
     };
 
