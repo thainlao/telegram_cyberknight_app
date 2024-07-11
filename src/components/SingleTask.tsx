@@ -89,7 +89,6 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
 
             {taskStatus === 'done' && (
                 <button className={getButtonClass()} disabled>
-                    Done
                 </button>
             )}
         </div>
