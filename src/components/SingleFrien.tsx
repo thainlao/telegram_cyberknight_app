@@ -31,14 +31,20 @@ const SingleFrien: React.FC<Props> = ({friend}) => {
         return <p>Loading...</p>;
     }
 
+    let firstCharecters = friend.username.split(' ').map((a: string) => a[0]);
+
     return (
         <div className="single_friend">
-            <div className="single_fren_text">
-                <h1>{singleUserData.username}</h1>
-                <p>CBK Coins: {singleUserData.cbkCoins}</p>
-                <p>Friends: {singleUserData.friends.length}</p>
-                <p>Last Collected: {singleUserData.cbkCoins}</p>
-            </div>
+                <div className="single_friend_text">
+                <div className="avatar-placeholder">
+                    <h1>{firstCharecters}</h1>
+                </div>
+                    <section>
+                        <h1>{friend.username}</h1>
+                        <p>+ {friend.friends.length}</p>
+                    </section>
+                </div>
+                <h3>{friend.cbkCoins} <span>CBK</span></h3>
         </div>
     )
 }
