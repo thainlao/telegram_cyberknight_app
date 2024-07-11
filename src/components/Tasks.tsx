@@ -1,34 +1,33 @@
+import { useEffect, useState } from 'react';
 import '../styles/tasks.css';
-import { ITasks, Status, UserDataProps } from '../utils/types';
+import { ITasks, UserDataProps } from '../utils/types';
 import SingleTask from './SingleTask';
 import { useSpring, animated } from 'react-spring';
+import axios from 'axios';
+import ErrorPage from '../pages/ErrorPage';
 
 const Tasks: React.FC<UserDataProps> = ({userData}) => {
-    console.log(userData)
-    const tasks: ITasks[] = ([
-        {
-            _id: '1',
-            img: 'https://i.imgur.com/SLFXGf9.png',
-            title: 'Complete Profile',
-            task_text: 'Complete Your 1st task',
-            status: 'blocked' as Status
-        },
-        {
-            _id: '2',
-            img: 'https://i.imgur.com/RLRmjZS.png',
-            title: 'First Mission',
-            task_text: 'Complete your second task.',
-            status: 'claim' as Status
-        },
-        {
-            _id: '3',
-            img: 'https://i.imgur.com/zd75TN9.png',
-            title: 'Third Mission',
-            task_text: 'Complete your third task.',
-            status: 'done' as Status
-        },
-        
-    ]);
+    const [tasks, setTasks] = useState<ITasks[]>([]);
+
+    if (!userData) {
+        return <ErrorPage />
+    }
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const response = await axios.post('/user/tasks', { telegramId: userData.telegramId });
+                if (response.data.success) {
+                    setTasks(response.data.tasks);
+                }
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+            }
+        };
+
+        fetchTasks();
+    }, [userData?.telegramId]);
+
 
     const sortedTasks = [...tasks].sort((a,b) => {
         const statusOrder = { 'claim' : 1, 'blocked': 2, 'done': 3};
@@ -50,7 +49,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
 
             <div className='tasks_section'>
                 {sortedTasks.map((singleTask) => (
-                    <SingleTask key={singleTask._id} singleTask={singleTask} />
+                    <SingleTask key={singleTask._id} telegramId={userData.telegramId} singleTask={singleTask} />
                 ))}
             </div>
         </animated.div>

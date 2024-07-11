@@ -4,12 +4,19 @@ export interface ITasks {
     title: string;
     task_text: string;
     status: Status;
+    reward: number;
+    link: string;
 }
 
 export type Status = 'done' | 'claim' | 'blocked';
 
 export interface Iprops {
     singleTask: ITasks;
+}
+
+export interface ISingleTaskProps {
+    singleTask: ITasks;
+    telegramId: string;
 }
 
 export interface IFriend {

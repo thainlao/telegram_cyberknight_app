@@ -75,7 +75,7 @@ function App() {
       </section>
       <h6 
       style={{color: 'white', fontSize: '1rem', fontWeight: '100'}}
-      >version 10.07.2024 (add referal link) (6)</h6>
+      >DEV VERISON 11.07.2024 (TASKS) (9)</h6>
   </div>
   )
 }
