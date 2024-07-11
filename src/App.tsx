@@ -30,9 +30,9 @@ function App() {
     return <span className='loader'></span>;
   }
 
-//   if (error) {
-//     return <ErrorComponents error={error} />
-//   }
+  if (error) {
+    return <ErrorComponents error={error} />
+  }
     
   return (
     <div className='mainpage'>
