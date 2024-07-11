@@ -32,7 +32,7 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
     const handleClaim = async () => {
         if (singleTask.status === 'claim') {
             try {
-                const response = await axios.post('/user/claim-task', { telegramId, taskId: singleTask._id });
+                const response = await axios.post('http://localhost:3000/user/claim-task', { telegramId, taskId: singleTask._id });
                 if (response.data.success) {
                     singleTask.status = 'done';
                 }
@@ -44,7 +44,7 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
 
             // Assume user has completed the task and update status to 'claim'
             try {
-                const response = await axios.post('/user/update-task-status', { telegramId, taskId: singleTask._id, newStatus: 'claim' });
+                const response = await axios.post('http://localhost:3000/user/update-task-status', { telegramId, taskId: singleTask._id, newStatus: 'claim' });
                 if (response.data.success) {
                     singleTask.status = 'claim';
                 }

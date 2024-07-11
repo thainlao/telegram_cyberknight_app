@@ -16,7 +16,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await axios.post('/user/tasks', { telegramId: userData.telegramId });
+                const response = await axios.post('http://localhost:3000/user/tasks', { telegramId: userData.telegramId });
                 if (response.data.success) {
                     setTasks(response.data.tasks);
                 }
@@ -26,7 +26,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
         };
 
         fetchTasks();
-    }, [userData?.telegramId]);
+    }, [userData.telegramId]);
 
 
     const sortedTasks = [...tasks].sort((a,b) => {
