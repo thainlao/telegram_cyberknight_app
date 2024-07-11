@@ -1,7 +1,9 @@
 import axios from "axios";
 import { ISingleTaskProps } from "../utils/types";
+import { useState } from "react";
 
 const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
+    const [taskStatus, setTaskStatus] = useState(singleTask.status);
 
     const getButtonClass = () => {
         switch (singleTask.status) {
@@ -33,29 +35,27 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
         }
     };
 
+    const handleOpen = async () => {
+        try {
+            const response = await axios.post('http://localhost:3000/user/update-task-status', { telegramId, taskId: singleTask._id, newStatus: 'claim' });
+            if (response.data.success) {
+                setTaskStatus('claim');
+                window.open(singleTask.link, '_blank');
+                alert('Task is now claimable. Please click the "Claim" button to claim the reward.');
+            }
+        } catch (error) {
+            console.error('Error updating task status:', error);
+        }
+    };
+
     const handleClaim = async () => {
-        if (singleTask.status === 'open') {
-            window.open(singleTask.link, '_blank');
-            alert('open link')
-            try {
-                const response = await axios.post('http://localhost:3000/user/update-task-status', { telegramId, taskId: singleTask._id, newStatus: 'claim' });
-                alert(response.data)
-                if (response.data.success) {
-                    singleTask.status = 'claim';
-                    alert('Task is now claimable. Please click the button again to claim the reward.');
-                }
-            } catch (error) {
-                console.error('Error updating task status:', error);
+        try {
+            const response = await axios.post('http://localhost:3000/user/claim-task', { telegramId, taskId: singleTask._id });
+            if (response.data.success) {
+                setTaskStatus('done');
             }
-        } else if (singleTask.status === 'claim') {
-            try {
-                const response = await axios.post('http://localhost:3000/user/claim-task', { telegramId, taskId: singleTask._id });
-                if (response.data.success) {
-                    singleTask.status = 'done';
-                }
-            } catch (error) {
-                console.error('Error claiming task:', error);
-            }
+        } catch (error) {
+            console.error('Error claiming task:', error);
         }
     };
 
@@ -69,9 +69,29 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
                 </div>
             </div>
 
-            <button className={getButtonClass()} disabled={singleTask.status === 'blocked'} onClick={handleClaim}>
-                {singleTask.status === 'open' ? 'Open' : singleTask.status === 'claim' ? 'Claim' : singleTask.status === 'done' ? '' : 'Blocked'}
-            </button>
+            {taskStatus === 'open' && (
+                <button className={getButtonClass()} onClick={handleOpen}>
+                    Open
+                </button>
+            )}
+
+            {taskStatus === 'claim' && (
+                <button className={getButtonClass()} onClick={handleClaim}>
+                    Claim
+                </button>
+            )}
+
+            {taskStatus === 'blocked' && (
+                <button className={getButtonClass()} disabled>
+                    Blocked
+                </button>
+            )}
+
+            {taskStatus === 'done' && (
+                <button className={getButtonClass()} disabled>
+                    Done
+                </button>
+            )}
         </div>
     )
 }

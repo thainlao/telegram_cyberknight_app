@@ -75,7 +75,7 @@ function App() {
       </section>
       <h6 
       style={{color: 'white', fontSize: '1rem', fontWeight: '100'}}
-      >DEV VERISON 11.07.2024 (TASKS) (10)</h6>
+      >DEV VERISON 11.07.2024 (TASKS) (11)</h6>
   </div>
   )
 }
