@@ -11,6 +11,8 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
                 return 'btn-claim';
             case 'blocked':
                 return 'btn-blocked';
+            case 'open':
+                return 'btn-open';
             default:
                 return '';
         }
@@ -24,25 +26,17 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
                 return 'single_task--claim';
             case 'blocked':
                 return 'single_task--blocked';
+            case 'open':
+                return 'single_task--open'
             default:
                 return '';
         }
     };
 
     const handleClaim = async () => {
-        if (singleTask.status === 'claim') {
-            try {
-                const response = await axios.post('http://localhost:3000/user/claim-task', { telegramId, taskId: singleTask._id });
-                if (response.data.success) {
-                    singleTask.status = 'done';
-                }
-            } catch (error) {
-                console.error('Error claiming task:', error);
-            }
-        } else if (singleTask.status === 'blocked' && singleTask.link) {
+        if (singleTask.status === 'open') {
             window.open(singleTask.link, '_blank');
 
-            // Assume user has completed the task and update status to 'claim'
             try {
                 const response = await axios.post('http://localhost:3000/user/update-task-status', { telegramId, taskId: singleTask._id, newStatus: 'claim' });
                 if (response.data.success) {
@@ -50,6 +44,16 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
                 }
             } catch (error) {
                 console.error('Error updating task status:', error);
+            }
+        } else if (singleTask.status === 'claim') {
+            try {
+                // Claim the task and mark it as 'done'
+                const response = await axios.post('http://localhost:3000/user/claim-task', { telegramId, taskId: singleTask._id });
+                if (response.data.success) {
+                    singleTask.status = 'done';
+                }
+            } catch (error) {
+                console.error('Error claiming task:', error);
             }
         }
     };

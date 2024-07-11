@@ -30,7 +30,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
 
 
     const sortedTasks = [...tasks].sort((a,b) => {
-        const statusOrder = { 'claim' : 1, 'blocked': 2, 'done': 3};
+        const statusOrder = { 'claim' : 1, 'open': 2, 'blocked': 3, 'done': 4};
         return statusOrder[a.status] - statusOrder[b.status]
     });
     

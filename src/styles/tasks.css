@@ -103,6 +103,12 @@
     box-shadow: 0px 0px 15px silver;
 }
 
+.single_task button.btn-open {
+    background-color: #eeece7;
+    color: rgb(44, 42, 42);
+    box-shadow: 0px 0px 15px rgb(214, 202, 202);
+}
+
 .single_task button.btn-blocked {
     background-color: #817e76;
     cursor: not-allowed;
@@ -125,6 +131,10 @@
 .single_task--done {
     border-bottom: 1px solid #4caf50;
     opacity: 0.7;
+}
+
+.single_task--open {
+    opacity: 1;
 }
 
 .single_task--blocked {

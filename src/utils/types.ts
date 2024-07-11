@@ -8,7 +8,7 @@ export interface ITasks {
     link: string;
 }
 
-export type Status = 'done' | 'claim' | 'blocked';
+export type Status = 'done' | 'claim' | 'blocked' | 'open';
 
 export interface Iprops {
     singleTask: ITasks;
