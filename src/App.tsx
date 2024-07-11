@@ -8,6 +8,7 @@ import Mates from "./components/Mates";
 import './styles/mainbody.css';
 import useTelegramAuth from './hoocs/useTelegramAuth';
 import ErrorComponents from './pages/ErrorComponents';
+import LoadingPage from './pages/LoadingPage';
 
 function App() {
   const [activeComponent, setActiveComponent] = useState('Base');
@@ -27,7 +28,7 @@ function App() {
   };
 
   if (loading) {
-    return <span className='loader'></span>;
+    return <LoadingPage />;
   }
 
   if (error) {

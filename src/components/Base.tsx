@@ -4,6 +4,7 @@ import lock from '../assets/icons8-lock-50.png';
 import { useSpring, animated } from 'react-spring';
 import { baseProps } from '../utils/types';
 import axios from 'axios';
+import ErrorPage from '../pages/ErrorPage';
 
 
 const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, checkCollectionStatus }) => {
@@ -11,7 +12,7 @@ const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, ch
     const [timeRemaining, setTimeRemaining] = useState<string | null>(null);
 
     if (!userData) {
-        return 'error'
+        return <ErrorPage />
     }
     
     useEffect(() => {

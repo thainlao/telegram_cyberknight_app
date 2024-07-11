@@ -5,12 +5,13 @@ import SingleFrien from './SingleFrien';
 import knight from '../assets/knight.png';
 import { useSpring, animated } from 'react-spring';
 import React, { useState } from 'react';
+import ErrorPage from '../pages/ErrorPage';
 
 const Mates: React.FC<UserDataProps> = ({userData}) => {
 
     if (!userData) {
         return (
-            <div>Error</div>
+            <ErrorPage />
         )
     }
 

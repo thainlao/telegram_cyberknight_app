@@ -127,6 +127,7 @@
     color: black;
     pointer-events: none;
     cursor: not-allowed;
+    box-shadow: 0px 0px 12px silver;
 }
 
 .collect_button:active {
