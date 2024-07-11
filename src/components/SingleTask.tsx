@@ -36,9 +36,10 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
     const handleClaim = async () => {
         if (singleTask.status === 'open') {
             window.open(singleTask.link, '_blank');
-
+            alert('open link')
             try {
                 const response = await axios.post('http://localhost:3000/user/update-task-status', { telegramId, taskId: singleTask._id, newStatus: 'claim' });
+                alert(response.data)
                 if (response.data.success) {
                     singleTask.status = 'claim';
                     alert('Task is now claimable. Please click the button again to claim the reward.');
