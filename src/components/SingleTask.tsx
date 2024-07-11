@@ -41,13 +41,13 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
                 const response = await axios.post('http://localhost:3000/user/update-task-status', { telegramId, taskId: singleTask._id, newStatus: 'claim' });
                 if (response.data.success) {
                     singleTask.status = 'claim';
+                    alert('Task is now claimable. Please click the button again to claim the reward.');
                 }
             } catch (error) {
                 console.error('Error updating task status:', error);
             }
         } else if (singleTask.status === 'claim') {
             try {
-                // Claim the task and mark it as 'done'
                 const response = await axios.post('http://localhost:3000/user/claim-task', { telegramId, taskId: singleTask._id });
                 if (response.data.success) {
                     singleTask.status = 'done';
@@ -69,7 +69,7 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
             </div>
 
             <button className={getButtonClass()} disabled={singleTask.status === 'blocked'} onClick={handleClaim}>
-                {singleTask.status === 'claim' ? 'Claim' : singleTask.status === 'done' ? '' : 'Blocked'}
+                {singleTask.status === 'open' ? 'Open' : singleTask.status === 'claim' ? 'Claim' : singleTask.status === 'done' ? '' : 'Blocked'}
             </button>
         </div>
     )

@@ -44,7 +44,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
         <animated.div style={animatedPropsOnEnter} className='tasks'>
             <div className='text_section'>
                 <h1>Cyber Knight Tasks</h1>
-                <h2>You will receive CBK$ by completing the task.</h2>
+                <h2>You will receive <span>CBK$</span> by completing the task.</h2>
             </div>
 
             <div className='tasks_section'>
