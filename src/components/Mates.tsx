@@ -58,7 +58,7 @@ const Mates: React.FC<UserDataProps> = ({userData}) => {
             <div className='star star2'></div>
             <div className='star star3'></div>
                 <h1>{userData.friends.length} mates</h1>
-                {userData?.friends.length > 0 ? (
+                {userData.friends.length > 0 ? (
                     userData.friends.map((friend: IFriend) => (
                         <SingleFrien key={friend._id} friend={friend} />
                     ))
