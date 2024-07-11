@@ -8,7 +8,7 @@ import ErrorPage from '../pages/ErrorPage';
 
 
 const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, checkCollectionStatus }) => {
-    const [buttonBlocked, setButtonBlocked] = useState<boolean>(!canCollect);
+    const [buttonBlocked, setButtonBlocked] = useState<boolean>(true);
     const [timeRemaining, setTimeRemaining] = useState<string | null>(null);
 
     if (!userData) {
@@ -33,9 +33,9 @@ const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, ch
             }, 1000);
             return () => clearInterval(interval);
         } else {
-            setButtonBlocked(false)
+            setButtonBlocked(!canCollect)
         }
-    }, [nextAvailableTime]);
+    }, [nextAvailableTime, canCollect]);
 
     const handleCollect = () => {
         if (!buttonBlocked) {
