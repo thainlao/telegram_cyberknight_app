@@ -99,6 +99,8 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
             <h2>You will receive <span>CBK$</span> by completing the task.</h2>
         </div>
 
+        <div className='daily_section'>
+            <h6>Get your daily reward with 150 <span>CBK$</span></h6>
         <button
             className={`daily_reward ${canCollect ? 'able' : 'disable'}`}
             onClick={handleCollectReward}
@@ -106,6 +108,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
         >
             {canCollect ? 'Get Daily Reward!' : `: ${timeRemaining}`}
         </button>
+        </div>
 
         <div className='tasks_section'>
             {sortedTasks.map((singleTask) => (
