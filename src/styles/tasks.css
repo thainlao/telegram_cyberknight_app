@@ -79,8 +79,9 @@
 }
 
 .disable {
-    background-color: #1d1c1b;
-    color: white;
+    background-color: #fcfcfc;
+    color: rgb(31, 29, 29);
+    font-weight: 100;
 }
 
 
