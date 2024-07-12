@@ -29,7 +29,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
 
         const fetchCollectionStatus = async () => {
             try {
-                const response = await axios.post('http://localhost:3000/user/collection-status', { telegramId: userData.telegramId });
+                const response = await axios.post('http://localhost:3000/user/daily-reward-status', { telegramId: userData.telegramId });
                 if (response.data.canCollect) {
                     setCanCollect(true);
                 } else {
@@ -59,7 +59,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
 
     const handleCollectReward = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/user/collect-coins', { telegramId: userData.telegramId });
+            const response = await axios.post('http://localhost:3000/user/collect-daily-reward', { telegramId: userData.telegramId });
             if (response.data.success) {
                 setCanCollect(false);
                 setNextAvailableTime(new Date(response.data.dailyRewardCooldown));
@@ -89,7 +89,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
             </div>
 
             <button
-                className={`daily_reward ${canCollect ? 'able' : 'disable'}`}
+                className={`daily_reward ${canCollect ? 'able' : ' '}`}
                 onClick={handleCollectReward}
                 disabled={!canCollect}
             >
