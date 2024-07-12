@@ -29,6 +29,7 @@ const ErrorComponents: React.FC<Props> = ({error}) => {
                 </button>
                 <h1>the link</h1>
             </div>
+            <button className='daily_reward'>get daily reward!</button>
             <h2>{error}</h2>
             <h6 
             style={{color: 'white', fontSize: '1rem', fontWeight: '100'}}
