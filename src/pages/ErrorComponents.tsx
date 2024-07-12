@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import '../styles/error.css';
 
 export interface Props {
     error: string;
 }
+
 const ErrorComponents: React.FC<Props> = ({error}) => {
     const [copied, setCopied] = useState(false);
 

@@ -5,26 +5,35 @@ import SingleTask from './SingleTask';
 import { useSpring, animated } from 'react-spring';
 import axios from 'axios';
 import ErrorPage from '../pages/ErrorPage';
+import LoadingPage from '../pages/LoadingPage';
 
 const Tasks: React.FC<UserDataProps> = ({userData}) => {
     const [tasks, setTasks] = useState<ITasks[]>([]);
     const [canCollect, setCanCollect] = useState<boolean>(false);
     const [nextAvailableTime, setNextAvailableTime] = useState<Date | null>(null);
     const [timeRemaining, setTimeRemaining] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(true);
 
     if (!userData) {
         return <ErrorPage />
     }
 
+    if (loading) {
+        return <LoadingPage />
+    }
+
     useEffect(() => {
         const fetchTasks = async () => {
             try {
+                setLoading(true);
                 const response = await axios.post('http://localhost:3000/user/tasks', { telegramId: userData.telegramId });
                 if (response.data.success) {
                     setTasks(response.data.tasks);
+                    setLoading(false)
                 }
             } catch (error) {
                 console.error('Error fetching tasks:', error);
+                setLoading(false)
             }
         };
     
@@ -63,8 +72,8 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
     });
     
     const animatedPropsOnEnter = useSpring({
-        from: { opacity: 0, transform: 'scale(0.5)', backgroundColor: '#19193D' },
-        to: { opacity: 1, transform: 'scale(1)', backgroundColor: '#19193D' },
+        from: { opacity: 0, transform: 'translateY(100px)' },
+        to: { opacity: 1, transform: 'translateY(0)' },
         config: { tension: 200, friction: 30 }
     });
 

@@ -14,17 +14,24 @@ function App() {
   const [activeComponent, setActiveComponent] = useState('Base');
   const { userData, loading, error, canCollect, nextAvailableTime, checkCollectionStatus } = useTelegramAuth();
 
+  const handleButtonClick = (component: any) => {
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+    setActiveComponent(component);
+  };
+
   const renderComponent = () => {
-      switch (activeComponent) {
-          case 'Base':
-              return <Base userData={userData} canCollect={canCollect} nextAvailableTime={nextAvailableTime} checkCollectionStatus={checkCollectionStatus} />
-          case 'Tasks':
-              return <Tasks userData={userData}/>;
-          case 'Mates':
-              return <Mates userData={userData}/>;
-          default:
-              return <Base userData={userData} canCollect={canCollect} nextAvailableTime={nextAvailableTime} checkCollectionStatus={checkCollectionStatus} />
-      }
+    switch (activeComponent) {
+      case 'Base':
+        return <Base userData={userData} canCollect={canCollect} nextAvailableTime={nextAvailableTime} checkCollectionStatus={checkCollectionStatus} />;
+      case 'Tasks':
+        return <Tasks userData={userData} />;
+      case 'Mates':
+        return <Mates userData={userData} />;
+      default:
+        return <Base userData={userData} canCollect={canCollect} nextAvailableTime={nextAvailableTime} checkCollectionStatus={checkCollectionStatus} />;
+    }
   };
 
   if (loading) {
@@ -32,52 +39,52 @@ function App() {
   }
 
   if (error) {
-    return <ErrorComponents error={error} />
+    return <ErrorComponents error={error} />;
   }
-    
+
   return (
     <div className='mainpage'>
       <div className='content-container'>
-          {renderComponent()}
+        {renderComponent()}
       </div>
       <section className='buttons'>
-                <button 
-                    className={activeComponent === 'Base' ? 'active' : ''}
-                    onClick={() => setActiveComponent('Base')}>
-                    Base
-                    <img 
-                    className={activeComponent === 'Base' ? 'active' : ''} 
-                    src={homeIcon} 
-                    alt="Home Icon" />
-                </button>
+        <button
+          className={activeComponent === 'Base' ? 'active' : ''}
+          onClick={() => handleButtonClick('Base')}>
+          Base
+          <img
+            className={activeComponent === 'Base' ? 'active' : ''}
+            src={homeIcon}
+            alt="Home Icon" />
+        </button>
 
-                <button 
-                    className={activeComponent === 'Tasks' ? 'active' : ''}
-                    onClick={() => setActiveComponent('Tasks')}
-                >
-                    Tasks
-                    <img
-                    className={activeComponent === 'Tasks' ? 'active' : ''} 
-                    src={taskIcon} 
-                    alt="Tasks Icon" />
-                </button>
-                
-                <button 
-                    className={activeComponent === 'Mates' ? 'active' : ''}
-                    onClick={() => setActiveComponent('Mates')}
-                >
-                    Mates
-                    <img 
-                    className={activeComponent === 'Mates' ? 'active' : ''}
-                    src={friendIcon} 
-                    alt="Friends Icon" />
-                </button>
+        <button
+          className={activeComponent === 'Tasks' ? 'active' : ''}
+          onClick={() => handleButtonClick('Tasks')}
+        >
+          Tasks
+          <img
+            className={activeComponent === 'Tasks' ? 'active' : ''}
+            src={taskIcon}
+            alt="Tasks Icon" />
+        </button>
+
+        <button
+          className={activeComponent === 'Mates' ? 'active' : ''}
+          onClick={() => handleButtonClick('Mates')}
+        >
+          Mates
+          <img
+            className={activeComponent === 'Mates' ? 'active' : ''}
+            src={friendIcon}
+            alt="Friends Icon" />
+        </button>
       </section>
-      <h6 
-      style={{color: 'white', fontSize: '1rem', fontWeight: '100'}}
+      <h6
+        style={{ color: 'white', fontSize: '1rem', fontWeight: '100' }}
       >DEV VERISON 11.07.2024 (TASKS) (11)</h6>
-  </div>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;

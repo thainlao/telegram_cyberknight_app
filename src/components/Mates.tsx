@@ -16,8 +16,8 @@ const Mates: React.FC<UserDataProps> = ({userData}) => {
     }
 
     const animatedPropsOnEnter = useSpring({
-        from: { opacity: 0, transform: 'scale(0.5)', backgroundColor: '#000000' },
-        to: { opacity: 1, transform: 'scale(1)', backgroundColor: '#000000' },
+        from: { opacity: 0, transform: 'translateY(100px)' },
+        to: { opacity: 1, transform: 'translateY(0)' },
         config: { tension: 200, friction: 30 }
     });
 
@@ -40,7 +40,7 @@ const Mates: React.FC<UserDataProps> = ({userData}) => {
 
     return (
         <animated.div style={animatedPropsOnEnter} className='mates'>
-            <div className='matestext_section'>
+            <div  className='matestext_section'>
                 <section>
                     <img src={knight} alt='knight'/>
                     <h1>C<span>y</span>ber<span>_</span>F<span>a</span>m</h1>

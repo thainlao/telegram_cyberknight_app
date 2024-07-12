@@ -62,8 +62,8 @@ const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, ch
     });
 
     const animatedPropsOnEnter = useSpring({
-        from: { opacity: 0, transform: 'scale(0.5)', backgroundColor: '#19193D' },
-        to: { opacity: 1, transform: 'scale(1)', backgroundColor: '#19193D' },
+        from: { opacity: 0, transform: 'translateY(100px)' },
+        to: { opacity: 1, transform: 'translateY(0)' },
         config: { tension: 200, friction: 30 }
     });
 
