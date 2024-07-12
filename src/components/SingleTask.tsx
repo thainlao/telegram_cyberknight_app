@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ISingleTaskProps } from "../utils/types";
 import { useState } from "react";
+import { serverApi } from "../utils/api";
 
 const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
     const [taskStatus, setTaskStatus] = useState(singleTask.status);
@@ -37,7 +38,7 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
 
     const handleOpen = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/user/update-task-status', { telegramId, taskId: singleTask._id, newStatus: 'claim' });
+            const response = await axios.post(`${serverApi}/user/update-task-status`, { telegramId, taskId: singleTask._id, newStatus: 'claim' });
             if (response.data.success) {
                 setTaskStatus('claim');
                 window.open(singleTask.link, '_blank');
@@ -50,7 +51,7 @@ const SingleTask: React.FC<ISingleTaskProps> = ({ singleTask, telegramId }) => {
 
     const handleClaim = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/user/claim-task', { telegramId, taskId: singleTask._id });
+            const response = await axios.post(`${serverApi}/user/claim-task`, { telegramId, taskId: singleTask._id });
             if (response.data.success) {
                 setTaskStatus('done');
             }

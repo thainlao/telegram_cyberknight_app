@@ -5,6 +5,7 @@ import SingleTask from './SingleTask';
 import { useSpring, animated } from 'react-spring';
 import axios from 'axios';
 import ErrorPage from '../pages/ErrorPage';
+import { serverApi } from '../utils/api';
 
 const Tasks: React.FC<UserDataProps> = ({userData, activeComponent}) => {
     const [tasks, setTasks] = useState<ITasks[]>([]);
@@ -19,7 +20,7 @@ const Tasks: React.FC<UserDataProps> = ({userData, activeComponent}) => {
     useEffect(() => {
         const fetchCollectionStatus = async () => {
             try {
-                const response = await axios.post('http://localhost:3000/user/daily-reward-status', { telegramId: userData.telegramId });
+                const response = await axios.post(`${serverApi}/user/daily-reward-status`, { telegramId: userData.telegramId });
                 if (response.data.canCollect) {
                     setCanCollect(true);
                 } else {
@@ -66,7 +67,7 @@ const Tasks: React.FC<UserDataProps> = ({userData, activeComponent}) => {
             navigator.vibrate(100);
         }
         try {
-            const response = await axios.post('http://localhost:3000/user/collect-daily-reward', { telegramId: userData.telegramId });
+            const response = await axios.post(`${serverApi}/user/collect-daily-reward`, { telegramId: userData.telegramId });
             if (response.data.success) {
                 setCanCollect(false);
                 setNextAvailableTime(new Date(response.data.dailyRewardCooldown));

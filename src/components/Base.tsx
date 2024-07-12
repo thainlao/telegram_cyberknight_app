@@ -5,6 +5,7 @@ import { useSpring, animated } from 'react-spring';
 import { baseProps } from '../utils/types';
 import axios from 'axios';
 import ErrorPage from '../pages/ErrorPage';
+import { serverApi } from '../utils/api';
 
 
 const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, checkCollectionStatus }) => {
@@ -42,7 +43,7 @@ const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, ch
             if (navigator.vibrate) {
                 navigator.vibrate(100); 
             }
-            axios.post('http://localhost:3000/user/collect-coins', { telegramId: userData.telegramId })
+            axios.post(`${serverApi}/user/collect-coins`, { telegramId: userData.telegramId })
                 .then(response => {
                     if (response.data.success) {
                         userData.cbkCoins = response.data.cbkCoins;
@@ -60,7 +61,7 @@ const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, ch
     };
 
     const animatedProps = useSpring({
-        count: userData.cbkCoins,
+        count: userData.cbkCoins.toLocaleString(),
         config: { tension: 100, friction: 100, duration: 1500 },
     });
 

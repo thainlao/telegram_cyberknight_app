@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { serverApi } from '../utils/api';
 
 export const fetchUserData = async (username: string) => {
     try {
-        const response = await axios.post('http://localhost:3000/user/get-user-by-username', { usernames: [username] });
+        const response = await axios.post(`${serverApi}/user/get-user-by-username`, { usernames: [username] });
         if (response.data.success) {
             return response.data.users[0]; // Assuming the response contains an array of users
         } else {

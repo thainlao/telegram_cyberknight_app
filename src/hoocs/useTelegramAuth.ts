@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IUserData } from '../utils/types';
+import { serverApi } from '../utils/api';
                     
 const useTelegramAuth = () => {
     const [userData, setUserData] = useState<IUserData | null>(null);
@@ -14,7 +15,7 @@ const useTelegramAuth = () => {
         tg.ready();
         const initData = tg.initDataUnsafe;
         setLoading(true)
-        axios.post('http://localhost:3000/auth/telegram', initData)
+        axios.post(`${serverApi}/auth/telegram`, initData)
             .then(response => {
                 if (response.data.success) {
                     console.log('User authenticated successfully');
@@ -38,7 +39,7 @@ const useTelegramAuth = () => {
 
     const checkCollectionStatus = (telegramId: string) => {
         setLoading(true)
-        axios.post('http://localhost:3000/user/collection-status', { telegramId })
+        axios.post(`${serverApi}/user/collection-status`, { telegramId })
             .then(response => {
                 console.log('Collection status response:', response.data);
                 setCanCollect(response.data.canCollect);
