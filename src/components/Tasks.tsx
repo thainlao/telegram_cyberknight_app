@@ -5,35 +5,26 @@ import SingleTask from './SingleTask';
 import { useSpring, animated } from 'react-spring';
 import axios from 'axios';
 import ErrorPage from '../pages/ErrorPage';
-import LoadingPage from '../pages/LoadingPage';
 
 const Tasks: React.FC<UserDataProps> = ({userData}) => {
     const [tasks, setTasks] = useState<ITasks[]>([]);
     const [canCollect, setCanCollect] = useState<boolean>(false);
     const [nextAvailableTime, setNextAvailableTime] = useState<Date | null>(null);
     const [timeRemaining, setTimeRemaining] = useState<string>('');
-    const [loading, setLoading] = useState<boolean>(true);
 
     if (!userData) {
         return <ErrorPage />
     }
 
-    if (loading) {
-        return <LoadingPage />
-    }
-
     useEffect(() => {
         const fetchTasks = async () => {
-            setLoading(true);
             try {
                 const response = await axios.post('http://localhost:3000/user/tasks', { telegramId: userData.telegramId });
                 if (response.data.success) {
                     setTasks(response.data.tasks);
-                    setLoading(false)
                 }
             } catch (error) {
                 console.error('Error fetching tasks:', error);
-                setLoading(false)
             }
         };
     
