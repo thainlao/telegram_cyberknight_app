@@ -24,13 +24,13 @@ function App() {
   const renderComponent = () => {
     switch (activeComponent) {
       case 'Base':
-        return <Base userData={userData} canCollect={canCollect} nextAvailableTime={nextAvailableTime} checkCollectionStatus={checkCollectionStatus} />;
+        return <Base userData={userData} canCollect={canCollect} nextAvailableTime={nextAvailableTime} checkCollectionStatus={checkCollectionStatus} activeComponent={activeComponent} />;
       case 'Tasks':
-        return <Tasks userData={userData} />;
+        return <Tasks userData={userData} activeComponent={activeComponent} />;
       case 'Mates':
-        return <Mates userData={userData} />;
+        return <Mates userData={userData} activeComponent={activeComponent} />;
       default:
-        return <Base userData={userData} canCollect={canCollect} nextAvailableTime={nextAvailableTime} checkCollectionStatus={checkCollectionStatus} />;
+        return <Base userData={userData} canCollect={canCollect} nextAvailableTime={nextAvailableTime} checkCollectionStatus={checkCollectionStatus} activeComponent={activeComponent} />;
     }
   };
 

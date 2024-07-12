@@ -39,6 +39,9 @@ const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, ch
 
     const handleCollect = () => {
         if (!buttonBlocked) {
+            if (navigator.vibrate) {
+                navigator.vibrate(100); 
+            }
             axios.post('http://localhost:3000/user/collect-coins', { telegramId: userData.telegramId })
                 .then(response => {
                     if (response.data.success) {

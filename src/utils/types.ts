@@ -41,11 +41,13 @@ export interface IUserData {
 
 export interface UserDataProps {
     userData: IUserData | null;
+    activeComponent: any
 }
 
 export interface baseProps {
     userData: IUserData | null;
     canCollect: boolean;
+    activeComponent: any
     nextAvailableTime: Date | null;
     checkCollectionStatus: (telegramId: string) => void;
 }

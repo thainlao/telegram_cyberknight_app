@@ -6,7 +6,7 @@ import { useSpring, animated } from 'react-spring';
 import axios from 'axios';
 import ErrorPage from '../pages/ErrorPage';
 
-const Tasks: React.FC<UserDataProps> = ({userData}) => {
+const Tasks: React.FC<UserDataProps> = ({userData, activeComponent}) => {
     const [tasks, setTasks] = useState<ITasks[]>([]);
     const [canCollect, setCanCollect] = useState<boolean>(false);
     const [nextAvailableTime, setNextAvailableTime] = useState<Date | null>(null);
@@ -37,7 +37,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
     useEffect(() => {
         setTasks(userData.tasks)
     },
-    [userData.telegramId])
+    [userData.telegramId, activeComponent])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -62,6 +62,9 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
     });
 
     const handleCollectReward = async () => {
+        if (navigator.vibrate) {
+            navigator.vibrate(100);
+        }
         try {
             const response = await axios.post('http://localhost:3000/user/collect-daily-reward', { telegramId: userData.telegramId });
             if (response.data.success) {

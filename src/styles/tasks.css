@@ -70,6 +70,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+.button_style {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button_style img {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 12;
 }
 
 .able {
