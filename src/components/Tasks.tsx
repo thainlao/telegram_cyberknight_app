@@ -100,11 +100,11 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
         </div>
 
         <button
-            className={`daily_reward ${canCollect ? 'able' : ''}`}
+            className={`daily_reward ${canCollect ? 'able' : 'disable'}`}
             onClick={handleCollectReward}
             disabled={!canCollect}
         >
-            {canCollect ? 'Get Daily Reward!' : `Next reward in: ${timeRemaining}`}
+            {canCollect ? 'Get Daily Reward!' : `: ${timeRemaining}`}
         </button>
 
         <div className='tasks_section'>
