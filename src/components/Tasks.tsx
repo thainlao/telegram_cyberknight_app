@@ -10,6 +10,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
     const [tasks, setTasks] = useState<ITasks[]>([]);
     const [canCollect, setCanCollect] = useState<boolean>(false);
     const [nextAvailableTime, setNextAvailableTime] = useState<Date | null>(null);
+    const [timeRemaining, setTimeRemaining] = useState<string>('');
 
     if (!userData) {
         return <ErrorPage />
@@ -44,6 +45,16 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
         fetchTasks();
         fetchCollectionStatus();
     }, [userData.telegramId]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (nextAvailableTime) {
+                setTimeRemaining(getTimeRemaining(nextAvailableTime));
+            }
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [nextAvailableTime]);
 
 
     const sortedTasks = [...tasks].sort((a,b) => {
@@ -93,7 +104,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
             onClick={handleCollectReward}
             disabled={!canCollect}
         >
-            {canCollect ? 'Get Daily Reward!' : `: ${nextAvailableTime ? getTimeRemaining(nextAvailableTime) : ''}`}
+            {canCollect ? 'Get Daily Reward!' : `Next reward in: ${timeRemaining}`}
         </button>
 
         <div className='tasks_section'>

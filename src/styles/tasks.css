@@ -18,6 +18,7 @@
     width: 90%;
     margin: 0 auto;
     padding: 1rem;
+    justify-content: center;
 }
 
 .text_section h1{
@@ -47,7 +48,7 @@
 
 .disable {
     background-color: #817e76;
-    color: black;
+    color: white;
 }
 
 /* SINGLE TASK*/
