@@ -5,7 +5,7 @@ export interface ITasks {
     task_text: string;
     status: Status;
     reward: number;
-    link: string;
+    link?: string;
 }
 
 export type Status = 'done' | 'claim' | 'blocked' | 'open';
@@ -36,6 +36,7 @@ export interface IUserData {
     lastCollected: Date;
     referrer: any;
     referralLink: string;
+    tasks: ITasks[];
 }
 
 export interface UserDataProps {

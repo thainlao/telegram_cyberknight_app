@@ -17,17 +17,6 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
     }
 
     useEffect(() => {
-        const fetchTasks = async () => {
-            try {
-                const response = await axios.post('http://localhost:3000/user/tasks', { telegramId: userData.telegramId });
-                if (response.data.success) {
-                    setTasks(response.data.tasks);
-                }
-            } catch (error) {
-                console.error('Error fetching tasks:', error);
-            }
-        };
-    
         const fetchCollectionStatus = async () => {
             try {
                 const response = await axios.post('http://localhost:3000/user/daily-reward-status', { telegramId: userData.telegramId });
@@ -42,9 +31,13 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
             }
         };
     
-        fetchTasks();
         fetchCollectionStatus();
     }, [userData.telegramId]);
+
+    useEffect(() => {
+        setTasks(userData.tasks)
+    },
+    [userData.telegramId])
 
     useEffect(() => {
         const interval = setInterval(() => {
