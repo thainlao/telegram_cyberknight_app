@@ -26,7 +26,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
                 console.error('Error fetching tasks:', error);
             }
         };
-
+    
         const fetchCollectionStatus = async () => {
             try {
                 const response = await axios.post('http://localhost:3000/user/daily-reward-status', { telegramId: userData.telegramId });
@@ -40,7 +40,7 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
                 console.error('Error fetching collection status:', error);
             }
         };
-
+    
         fetchTasks();
         fetchCollectionStatus();
     }, [userData.telegramId]);
@@ -83,25 +83,25 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
 
     return (
         <animated.div style={animatedPropsOnEnter} className='tasks'>
-            <div className='text_section'>
-                <h1>Cyber Knight Tasks</h1>
-                <h2>You will receive <span>CBK$</span> by completing the task.</h2>
-            </div>
+        <div className='text_section'>
+            <h1>Cyber Knight Tasks</h1>
+            <h2>You will receive <span>CBK$</span> by completing the task.</h2>
+        </div>
 
-            <button
-                className={`daily_reward ${canCollect ? 'able' : ' '}`}
-                onClick={handleCollectReward}
-                disabled={!canCollect}
-            >
-                {canCollect ? 'Get Daily Reward!' : `Next reward in: ${getTimeRemaining(nextAvailableTime as Date)}`}
-            </button>
+        <button
+            className={`daily_reward ${canCollect ? 'able' : ''}`}
+            onClick={handleCollectReward}
+            disabled={!canCollect}
+        >
+            {canCollect ? 'Get Daily Reward!' : `: ${nextAvailableTime ? getTimeRemaining(nextAvailableTime) : ''}`}
+        </button>
 
-            <div className='tasks_section'>
-                {sortedTasks.map((singleTask) => (
-                    <SingleTask key={singleTask._id} telegramId={userData.telegramId} singleTask={singleTask} />
-                ))}
-            </div>
-        </animated.div>
+        <div className='tasks_section'>
+            {sortedTasks.map((singleTask) => (
+                <SingleTask key={singleTask._id} telegramId={userData.telegramId} singleTask={singleTask} />
+            ))}
+        </div>
+    </animated.div>
     );
 };
 
