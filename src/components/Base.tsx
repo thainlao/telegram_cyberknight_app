@@ -61,7 +61,7 @@ const Base: React.FC<baseProps> = ({ userData, canCollect, nextAvailableTime, ch
     };
 
     const animatedProps = useSpring({
-        count: userData.cbkCoins.toLocaleString(),
+        count: userData.cbkCoins,
         config: { tension: 100, friction: 100, duration: 1500 },
     });
 
