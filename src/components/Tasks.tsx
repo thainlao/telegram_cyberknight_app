@@ -24,8 +24,8 @@ const Tasks: React.FC<UserDataProps> = ({userData}) => {
 
     useEffect(() => {
         const fetchTasks = async () => {
+            setLoading(true);
             try {
-                setLoading(true);
                 const response = await axios.post('http://localhost:3000/user/tasks', { telegramId: userData.telegramId });
                 if (response.data.success) {
                     setTasks(response.data.tasks);
